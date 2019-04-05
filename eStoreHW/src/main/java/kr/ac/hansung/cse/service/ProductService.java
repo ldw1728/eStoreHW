@@ -1,13 +1,8 @@
 package kr.ac.hansung.cse.service;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,9 +52,9 @@ public class ProductService {
 		MultipartFile mf = mhsr.getFile("image");
 		if(!mf.isEmpty()) {
 		
-		String path = "F:\\dev\\workspace\\eStoreHW\\src\\main\\webapp\\resources\\upload";
+		String path = "C:\\Users\\User\\git\\eStoreHW\\eStoreHW\\src\\main\\webapp\\resources\\upload";
 		String[] type = mf.getContentType().split("/");
-		if((!type[1].equals("jpg") && !type[1].equals("jpeg") && !type[1].equals("png")) || mf.getSize()>5242880 ) {
+		if((!type[1].equals("jpg") && !type[1].equals("jpeg") && !type[1].equals("png")) || mf.getSize()>5000000 ) {
 			return false;
 		}
 		String fileName = product.getName()+"."+type[1];
@@ -87,8 +82,8 @@ public class ProductService {
 	
 	public String getProductImageName(Product product) {
 		
-		String path = "F:\\dev\\workspace\\eStoreHW\\src\\main\\webapp\\resources\\upload";
-		
+		String path = "C:\\Users\\User\\git\\eStoreHW\\eStoreHW\\src\\main\\webapp\\resources\\upload";
+		try {
 		File imgDir = new File(path);
 		
 		File[] imgFiles = imgDir.listFiles();
@@ -98,7 +93,10 @@ public class ProductService {
 				return imgFiles[i].getName();
 			}
 		}
-		
+		}catch(NullPointerException e) {
+			e.printStackTrace();
+			return null;
+		}
 		return null;
 	}
 }
